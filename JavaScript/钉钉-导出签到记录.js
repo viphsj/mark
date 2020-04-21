@@ -39,7 +39,7 @@ function fu(xmlHttp,url){
                         main2();                        
                         break;
                     case 2:
-                        //读取下载文件地址
+                        //progress 到100，就会返回下载文件地址，直接使用
                         if(result["data"]["result"]["progress"] == 100){
                             fileUrl = result["data"]["result"]["url"];
                             console.log(deptName);
@@ -66,6 +66,7 @@ function fu(xmlHttp,url){
 //有了这个async关键字，只是表明里面可能有异步过程，里面可以有await关键字。当然，全部是同步代码也没关系。当然，这时候这个async关键字就显得多余了。不是不能加，而是不应该加。
 //async函数，如果里面有异步过程，会等待；
 //但是async函数本身会马上返回，不会阻塞当前线程。
+//循环 部门id，以便得到 任务id
 async function main() { 
     for (key in deptId) {
         deptName = key;
@@ -79,6 +80,7 @@ async function main() {
     }
 }
 
+//使用返回的 任务id 来取 下载文件地址
 async function main2() {     
     xmlHttp1 = creatXMLHttpRequest();    
     var url1 = "https://attendance.dingtalk.com/attendance/web/export/downloadLocal/taskProgress.json?taskId="
